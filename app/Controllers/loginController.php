@@ -14,20 +14,23 @@ class loginController extends Controller
 
     public function login()
     {
+       $correo = $this->request->getPost('email');
         $persona = new persona_modelo();
-        //de acuerdo al tipo de usuario te mostrara director y cliente
-        $data = [
-            'persona' => $persona->where('correo', $this->request->getPost('email'))->first()
-        ];
-
-        if ($data['persona'] != null) {
-            if ($data['persona']['rol'] == 'Director bancario') {
-                return redirect()->to('director')->with('data', $data);
-            } else {
-                return redirect()->to('cliente')->with('data', $data);
+        $usuariovalidado = $persona->where('correo', $correo)->first();
+        echo $usuariovalidado['rol'];
+        if ($usuariovalidado != null) {
+            if ($usuariovalidado['rol'] == 'Director bancario') {
+                echo "aaaaaaaaaa";
+                return redirect()->to('director')->with('data', $usuariovalidado);
             }
-        } else {
-            return redirect()->to('login');
+            else{
+                return redirect()->to('cliente')->with('data', $usuariovalidado);
+            }
+        }
+        
+        else{
+            return redirect()->to('loginView');
         }
     }
 }
+      
