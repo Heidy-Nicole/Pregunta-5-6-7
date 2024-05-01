@@ -18,3 +18,4 @@ class cuenta_modelo extends Model
     protected $validationMessages = [];
     protected $skipValidation     = false;
 }
+

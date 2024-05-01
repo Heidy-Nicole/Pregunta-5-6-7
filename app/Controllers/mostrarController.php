@@ -31,3 +31,5 @@ class mostrarController extends BaseController
 
     
 }
+?>
+
